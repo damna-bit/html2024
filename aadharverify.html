@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+       <title>Validation for Mobile and Aadhaar</title>
+    </head>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+        }
+        input[type="text"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+
+<body>
+    <h1>Validation for Mobile and Aadhaar</h1>
+    <form id="validationForm">
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number:</label>
+            <input type="text" id="mobileNumber" name="mobileNumber" required>
+        </div>
+        <div class="form-group">
+            <label for="aadhaarNumber">Aadhaar Number:</label>
+            <input type="text" id="aadhaarNumber" name="aadhaarNumber" required>
+        </div>
+        <button type="submit">Validate</button>
+        <p id="message"></p>
+    </form>
+
+    <script>
+        
+        function validateMobileNumber(mobileNumber) {
+            const mobilePattern = /^[6-9]\d{9}$/;
+            return mobilePattern.test(mobileNumber);
+        }
+
+   
+        function validateAadhaarNumber(aadhaarNumber) {
+            const aadhaarPattern = /^\d{12}$/;
+            return aadhaarPattern.test(aadhaarNumber);
+        }
+
+
+        document.getElementById("validationForm").addEventListener("submit", function(event) {
+            event.preventDefault(); 
+
+            const mobileNumber = document.getElementById("mobileNumber").value;
+            const aadhaarNumber = document.getElementById("aadhaarNumber").value;
+            const messageElement = document.getElementById("message");
+
+     
+            const isMobileValid = validateMobileNumber(mobileNumber);
+            const isAadhaarValid = validateAadhaarNumber(aadhaarNumber);
+
+            if (!isMobileValid) {
+                messageElement.textContent = "Invalid mobile number. It must be 10 digits and start with 6, 7, 8, or 9.";
+                messageElement.className = "error";
+            } else if (!isAadhaarValid) {
+                messageElement.textContent = "Invalid Aadhaar number. It must be exactly 12 digits.";
+                messageElement.className = "error";
+            } else {
+                messageElement.textContent = "Both mobile number and Aadhaar number are valid!";
+                messageElement.className = "success";
+            }
+        });
+    </script>
+</body>
+</html>

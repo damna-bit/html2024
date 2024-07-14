@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Validation</title>
+    <style>
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h2>Form Validation Example</h2>
+    <form id="nameForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" required><br><br>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" required><br><br>
+        <button type="submit">Submit</button>
+        <p id="message"></p>
+    </form>
+
+    <script>
+        document.getElementById('nameForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+            var firstName = document.getElementById('firstName').value;
+            var lastName = document.getElementById('lastName').value;
+            var message = document.getElementById('message');
+
+            
+            var alphaRegex = /^[A-Za-z]+$/;
+
+            if (!alphaRegex.test(firstName)) {
+                 message.className = 'error';
+
+                message.textContent = 'First name must contain only alphabets.';
+                return;
+               
+            }
+
+            if (!alphaRegex.test(lastName)) {
+                message.textContent = 'Last name must contain only alphabets.';
+                message.className = 'error';
+                return;
+            
+            }
+
+        
+            message.textContent = 'Form submitted successfully! First Name: ' + firstName + ', Last Name: ' + lastName;
+            message.className = 'success';
+        });
+    </script>
+</body>
+</html>
